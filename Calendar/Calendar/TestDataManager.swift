@@ -5,22 +5,18 @@ import SwiftData
 class TestDataManager {
     static let shared = TestDataManager()
     
-    // Создание тестового пользователя в локальной базе данных
     func createTestUser(in modelContext: ModelContext) -> UserModel? {
         print("🔵 Creating test user...")
         
-        // Проверяем, есть ли уже пользователи в сессии
         if SessionManager.shared.user != nil {
             print("🟡 User already logged in")
             return SessionManager.shared.user
         }
         
-        // Тестовые данные
         let testEmail = "test@example.com"
         let testPassword = "123456"
         let testUsername = "Test User"
         
-        // Создаем тестового пользователя
         let testUser = UserModel(
             id: UUID(),
             email: testEmail,
@@ -28,7 +24,6 @@ class TestDataManager {
             username: testUsername
         )
         
-        // Сохраняем в сессию
         SessionManager.shared.user = testUser
         
         print("🟢 Test user created:")
@@ -39,14 +34,12 @@ class TestDataManager {
         return testUser
     }
     
-    // Создание тестовых событий
     func createTestEvents(in modelContext: ModelContext, for userId: UUID) {
         print("🔵 Creating test events...")
         
         let calendar = Calendar.current
         let today = Date()
         
-        // Тестовые события
         let testEvents = [
             (
                 title: "Team Meeting",
@@ -98,7 +91,6 @@ class TestDataManager {
         print("🟢 Created \(testEvents.count) test events")
     }
     
-    // Создание тестового пользователя на сервере
     func createTestUserOnServer() async throws -> UserModel {
         print("🔵 Creating test user on server...")
         
@@ -119,23 +111,19 @@ class TestDataManager {
         }
     }
     
-    // Полная настройка тестовых данных
     func setupTestData(in modelContext: ModelContext) async {
         print("\n" + String(repeating: "=", count: 50))
         print("📱 SETTING UP TEST DATA")
         print(String(repeating: "=", count: 50))
         
-        // 1. Создаем локального тестового пользователя
         guard let testUser = createTestUser(in: modelContext),
               let userId = testUser.id else {
             print("🔴 Failed to create test user")
             return
         }
         
-        // 2. Создаем тестовые события
         createTestEvents(in: modelContext, for: userId)
         
-        // 3. Пытаемся создать пользователя на сервере
         do {
             _ = try await createTestUserOnServer()
         } catch {
@@ -147,7 +135,6 @@ class TestDataManager {
         print(String(repeating: "=", count: 50) + "\n")
     }
     
-    // Быстрый вход с тестовым пользователем
     func quickLogin() -> UserModel? {
         let testUser = UserModel(
             id: UUID(),
