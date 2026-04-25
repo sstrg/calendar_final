@@ -13,7 +13,6 @@ struct LoginView: View {
         VStack(spacing: 20) {
             Spacer()
             
-            // Logo
             Image(systemName: "calendar.circle.fill")
                 .resizable()
                 .frame(width: 100, height: 100)
