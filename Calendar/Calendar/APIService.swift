@@ -3,10 +3,9 @@ import Foundation
 class APIService {
     static let shared = APIService()
     
-    // Для симулятора используйте host.docker.internal
+
     let baseURL = "http://127.0.0.1:8080"
-    
-    // MARK: - Auth Methods
+
     func register(email: String, password: String, username: String? = nil) async throws -> UserModel {
         print("🔵 Register attempt for: \(email)")
         
@@ -123,7 +122,7 @@ class APIService {
         return try JSONDecoder().decode(EventModel.self, from: data)
     }
     
-    // ДОБАВЛЯЕМ НЕДОСТАЮЩИЙ МЕТОД deleteEvent
+
     func deleteEvent(eventId: UUID) async throws {
         let url = URL(string: "\(baseURL)/events/\(eventId.uuidString)")!
         var req = URLRequest(url: url)
@@ -138,7 +137,6 @@ class APIService {
         print("🟢 Event deleted: \(eventId)")
     }
     
-    // ДОБАВЛЯЕМ НЕДОСТАЮЩИЙ МЕТОД updateEvent
     func updateEvent(_ event: EventModel) async throws -> EventModel {
         guard let eventId = event.id else {
             throw NSError(domain: "API", code: -1, userInfo: [NSLocalizedDescriptionKey: "Event has no ID"])
