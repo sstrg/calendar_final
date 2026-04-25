@@ -48,12 +48,9 @@ struct AppRootView: View {
     }
     
     private func checkLoginStatus() async {
-        // Проверяем, есть ли сохраненный пользователь
         if SessionManager.shared.user != nil {
-            // Пользователь уже вошел
             isLoggedIn = true
         } else {
-            // Пользователь не вошел, показываем экран логина
             isLoggedIn = false
         }
         isLoading = false
