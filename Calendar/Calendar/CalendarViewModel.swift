@@ -20,7 +20,6 @@ final class CalendarViewModel: ObservableObject {
         
         isLoading = true
         
-        // Просто загружаем локальные события
         loadLocalEvents(for: userId)
         
         isLoading = false
