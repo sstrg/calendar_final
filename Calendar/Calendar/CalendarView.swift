@@ -13,12 +13,10 @@ struct CalendarView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                // Date picker
                 DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
                     .datePickerStyle(.graphical)
                     .padding()
                 
-                // Events list
                 if vm.isLoading {
                     Spacer()
                     ProgressView("Loading events...")
@@ -66,7 +64,6 @@ struct CalendarView: View {
                     }
                 }
                 
-                // КНОПКА ВЫХОДА
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         showingLogoutAlert = true
@@ -124,13 +121,10 @@ struct CalendarView: View {
     }
     
     private func logout() {
-        // Очищаем сессию
         SessionManager.shared.user = nil
         
-        // Очищаем UserDefaults если есть
         UserDefaults.standard.removeObject(forKey: "loggedInUser")
         
-        // Показываем экран логина
         showingLoginScreen = true
     }
 }
